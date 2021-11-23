@@ -1,0 +1,50 @@
+{
+	"name": "frontend",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@emotion/react": "^11.4.1",
+		"@emotion/styled": "^11.3.0",
+		"@mui/icons-material": "^5.0.4",
+		"@mui/material": "^5.0.4",
+		"axios": "^0.23.0",
+		"leaflet": "^1.7.1",
+		"leaflet-defaulticon-compatibility": "^0.1.1",
+		"lodash.debounce": "^4.0.8",
+		"luxon": "^2.1.1",
+		"react": "^17.0.2",
+		"react-countdown-circle-timer": "^2.5.4",
+		"react-device-detect": "^2.1.2",
+		"react-dom": "^17.0.2",
+		"react-leaflet": "^3.2.2",
+		"react-scripts": "4.0.3",
+		"react-use": "^17.3.1",
+		"use-orientation-change": "^1.0.4",
+		"web-vitals": "^1.0.1"
+	},
+	"scripts": {
+		"start": "HTTPS=true SSL_CRT_FILE=localhost.pem SSL_KEY_FILE=localhost-key.pem react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"prettier": "prettier --write src"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.1.0",
+		"@testing-library/user-event": "^12.1.10",
+		"prettier": "^2.4.1",
+		"react-test-renderer": "^17.0.2"
+	}
+}

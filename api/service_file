@@ -1,0 +1,15 @@
+[Unit]
+Description=Rust Rocket API
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/home/debian/api/
+Environment="ROCKET_ENV=prod"
+Environment="ROCKET_ADDRESS=0.0.0.0"
+Environment="ROCKET_PORT=8000"
+Environment="ROCKET_LOG=critical"
+ExecStart=/home/debian/api/target/release/api
+
+[Install]
+WantedBy=multi-user.target

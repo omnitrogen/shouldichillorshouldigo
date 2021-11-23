@@ -1,0 +1,11 @@
+FROM rust:latest AS builder
+COPY . .
+RUN cargo install --path .
+
+FROM debian:buster-slim AS runner
+RUN apt-get update && apt-get install -y \
+    libssl-dev
+COPY --from=builder /usr/local/cargo/bin/api /usr/local/bin/api
+ENV ROCKET_ADDRESS=0.0.0.0
+EXPOSE 8000
+CMD ["api"]
