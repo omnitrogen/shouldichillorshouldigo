@@ -33,6 +33,10 @@ const DraggableMarker = ({dispatchType, locationType}) => {
 
 	const map = useMap()
 
+	useEffect(() => {
+		markerRef.current.openPopup()
+	}, [])
+
 	const eventHandlers = useMemo(
 		() => ({
 			dragend() {
