@@ -1,0 +1,109 @@
+name: deploy-to-vps
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy-front:
+        name: 🚀 Deploy front ⚛️
+
+        runs-on: ubuntu-latest
+
+        defaults:
+            run:
+                working-directory: frontend
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: ⚙️ Set up Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: "16"
+
+            - name: 💼 Get yarn cache directory path
+              id: yarn-cache-dir-path
+              run: echo "::set-output name=dir::$(yarn cache dir)"
+
+            - uses: actions/cache@v2
+              id: yarn-cache
+              with:
+                  path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+                  key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn-
+
+            - name: 📦 yarn
+              run: yarn
+
+            - name: 🔨 yarn build
+              run: yarn build
+
+            - name: 🪞 scp build to vps
+              uses: garygrossgarten/github-action-scp@release
+              with:
+                  host: ${{ secrets.VPS_IP }}
+                  username: ${{ secrets.VPS_SSH_USERNAME }}
+                  privateKey: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.VPS_SSH_PORT }}
+                  rmRemote: true
+                  local: ./frontend/build
+                  remote: ${{ secrets.VPS_FRONT_FOLDER }}
+
+            - name: 🔄 sudo systemctl restart nginx
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_IP }}
+                  username: ${{ secrets.VPS_SSH_USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.VPS_SSH_PORT }}
+                  script: sudo systemctl restart nginx
+
+    deploy-back:
+        name: 🚀 Deploy back 🦀
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: 🪞 scp api to vps
+              uses: garygrossgarten/github-action-scp@release
+              with:
+                  host: ${{ secrets.VPS_IP }}
+                  username: ${{ secrets.VPS_SSH_USERNAME }}
+                  privateKey: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.VPS_SSH_PORT }}
+                  rmRemote: true
+                  local: ./api
+                  remote: ${{ secrets.VPS_API_FOLDER }}
+
+            - name: 📜 touch .env
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_IP }}
+                  username: ${{ secrets.VPS_SSH_USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.VPS_SSH_PORT }}
+                  script: |
+                      cd ~/api
+                      touch .env
+                      echo NAVITIA_TOKEN=${{ secrets.NAVITIA_TOKEN }} >> .env
+
+            - name: 🐋 docker build {...} && docker run {...}
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{ secrets.VPS_IP }}
+                  username: ${{ secrets.VPS_SSH_USERNAME }}
+                  key: ${{ secrets.SSH_KEY }}
+                  port: ${{ secrets.VPS_SSH_PORT }}
+                  script: |
+                      cd ~/api
+                      docker build -t api .
+                      docker image prune --filter label=stage=builder -f
+                      docker stop api
+                      docker rm api
+                      docker run -d -p 8000:8000 --restart always --name api api
