@@ -21,6 +21,7 @@ This is a small project to play with:
 - 🚆 Transportation APIs
 - 🐋 Docker
 - 🚀 Nginx
+- :octocat: Github Actions CI/CD
 
 ---
 
