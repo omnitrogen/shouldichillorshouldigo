@@ -1,4 +1,5 @@
 FROM rust:latest AS builder
+LABEL stage=builder
 COPY . .
 RUN cargo install --path .
 
