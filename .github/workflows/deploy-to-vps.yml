@@ -91,7 +91,7 @@ jobs:
                   script: |
                       cd ~/api
                       touch .env
-                      echo NAVITIA_TOKEN=${{ secrets.NAVITIA_TOKEN }} >> .env
+                      echo NAVITIA_TOKEN="${{ secrets.NAVITIA_TOKEN }}" > .env
 
             - name: 🐋 docker build {...} && docker run {...}
               uses: appleboy/ssh-action@master
