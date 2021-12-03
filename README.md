@@ -28,7 +28,6 @@ This is a small project to play with:
 ## TODO:
 
 - [ ] Improve Rocket backend
-- [ ] Create dockercompose to improve deployment
 - [ ] Add frontend and backend tests
 - [ ] Add a cookie(/LocalStorage) consent banner
 - [ ] Add disruptions warning (https://doc.navitia.io/#line-reports)
