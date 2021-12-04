@@ -29,7 +29,7 @@ export const CurrentLocation = () => {
 					where do you live?
 				</Typography>
 				<PlaceAutocomplete
-					label="Localisation"
+					label="Location"
 					dispatchType="SET_CURRENT_LOCATION"
 					getCurrentLoc
 				/>
