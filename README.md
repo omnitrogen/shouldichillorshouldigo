@@ -1,5 +1,7 @@
 # ⏰ [Should I chill or should I go?](https://www.shouldichillorshouldigo.com/)
 
+![deploy workflow](https://github.com/omnitrogen/shouldichillorshouldigo/actions/workflows/deploy-to-vps.yml/badge.svg)
+
 ## What?
 
 Do you want to know whether or not you have a few minutes to chill before walking to your favorite transportation station ?

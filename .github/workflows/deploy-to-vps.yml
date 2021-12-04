@@ -1,5 +1,4 @@
-name: 🚀 Deploy to VPS
-
+name: Deploy 🚀
 on:
     push:
         branches: [main]
