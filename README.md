@@ -1,6 +1,11 @@
 # ⏰ [Should I chill or should I go?](https://www.shouldichillorshouldigo.com/)
 
-![deploy workflow](https://github.com/omnitrogen/shouldichillorshouldigo/actions/workflows/deploy-to-vps.yml/badge.svg)
+
+![deploy workflow](https://img.shields.io/github/workflow/status/omnitrogen/shouldichillorshouldigo/deploy-to-vps?label=Deploy%20to%20VPS%20%F0%9F%9A%80&logo=github)
+![code size](https://img.shields.io/github/languages/code-size/omnitrogen/shouldichillorshouldigo)
+![license badge](https://img.shields.io/github/license/omnitrogen/shouldichillorshouldigo)
+
+---
 
 ## What?
 
