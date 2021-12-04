@@ -4,7 +4,6 @@ mod tests;
 
 #[macro_use]
 extern crate rocket;
-extern crate dotenv_codegen;
 
 use crate::structs::Message;
 

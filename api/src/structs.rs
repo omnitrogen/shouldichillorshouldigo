@@ -1,6 +1,6 @@
-use rocket::serde::{Deserialize, Serialize};
+use rocket::serde::Serialize;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize)]
 pub struct Message {
     pub message: String,
 }
